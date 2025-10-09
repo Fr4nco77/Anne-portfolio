@@ -1,0 +1,85 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/lora";
+import "@fontsource-variable/ibm-plex-sans";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { ClientRouter } from "astro:transitions";
+import type { Locale } from "@i18n/utils";
+
+interface Props {
+  title?: string;
+  description: string;
+}
+
+const lang = Astro.currentLocale as Locale;
+const { href, origin } = Astro.url;
+const { title, description } = Astro.props;
+
+const siteTitle = "ANNE";
+const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="canonical" href={href} />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>{pageTitle}</title>
+    <ClientRouter />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: pageTitle,
+        description: description,
+        url: href,
+        publisher: {
+          "@type": "Organization",
+          name: siteTitle,
+          logo: {
+            "@type": "ImageObject",
+            url: `${origin}/favicon.ico`,
+          },
+        },
+      })}
+    />
+    <script is:inline data-astro-rerun>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = stored || (prefersDark ? "dark" : "light");
+
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <header
+      class="fix top-0 left-0 z-10 px-[5vw] py-[clamp(20px,2%,30px)] md:px-[2vw]"
+    >
+      <a
+        href={getRelativeLocaleUrl(lang, "/")}
+        class="font-title text-primary mix-blend-difference md:text-xl"
+      >
+        {siteTitle}
+      </a>
+    </header>
+    <slot />
+  </body>
+</html>
