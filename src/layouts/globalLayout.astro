@@ -53,29 +53,14 @@ const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
         },
       })}
     />
-    <script is:inline data-astro-rerun>
-      (() => {
-        const stored = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        const theme = stored || (prefersDark ? "dark" : "light");
-
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      })();
-    </script>
   </head>
   <body>
     <header
-      class="fix top-0 left-0 z-10 px-[5vw] py-[clamp(20px,2%,30px)] md:px-[2vw]"
+      class="absolute top-0 left-0 z-10 px-[5vw] py-[clamp(20px,2%,30px)] mix-blend-difference md:px-[2vw]"
     >
       <a
         href={getRelativeLocaleUrl(lang, "/")}
-        class="font-title text-primary mix-blend-difference md:text-xl"
+        class="font-title text-primary text-lg font-medium md:text-xl xl:text-2xl"
       >
         {siteTitle}
       </a>
