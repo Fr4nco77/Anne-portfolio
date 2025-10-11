@@ -2,20 +2,8 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --color-primary: #ffffff;
-  --color-secondary: #000000;
-}
-
-.dark {
-  --color-primary: #000000;
-  --color-secondary: #ffffff;
-}
-
 @theme inline {
   --font-title: "IBM Plex Sans Variable", sans-serif;
-  --color-primary: var(--color-primary);
-  --color-secondary: var(--color-secondary);
   --color-accent: #c38133;
   --animate-fadeIn: fadeIn 1s ease-out forwards;
   --animate-fadeOut: fadeOut 1s ease-in forwards;
@@ -82,7 +70,7 @@
 @layer base {
   html,
   body {
-    @apply bg-primary text-secondary;
+    @apply bg-white text-black;
     margin: 0;
     padding: 0;
     width: 100%;
