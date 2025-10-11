@@ -1,0 +1,42 @@
+---
+interface Props {
+  subtitle: string;
+}
+
+const title = "ANNE. |";
+const { subtitle } = Astro.props;
+---
+
+<div
+  id="loader"
+  class="animate-loader absolute inset-0 z-20 hidden h-screen w-full items-center justify-center bg-black lg:flex"
+  style="animation-delay: 2s"
+>
+  <div
+    class="animate-fadeOut flex items-end gap-4"
+    style="animation-delay: 1.2s"
+  >
+    <span
+      class="title animate-fadeIn text-7xl font-medium text-white opacity-0"
+    >
+      {title}
+    </span>
+    <span
+      class="animate-revealX title text-5xl text-gray-300 opacity-0"
+      style="animation-delay: 0.5s;"
+    >
+      {subtitle}
+    </span>
+  </div>
+</div>
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader")!;
+
+    loader.addEventListener("animationend", (event) => {
+      if (event.animationName === "loader") {
+        loader.remove();
+      }
+    });
+  });
+</script>

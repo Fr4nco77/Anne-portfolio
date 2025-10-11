@@ -1,10 +1,41 @@
 ---
 import GlobalLayout from "@layouts/globalLayout.astro";
-import { staticPaths } from "@i18n/utils";
+import DividedLayout from "@layouts/dividedLayout.astro";
+import { staticPaths, type Locale } from "@i18n/utils";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import Loader from "@components/main/loader.astro";
+import Hero from "@components/main/hero.astro";
 export const getStaticPaths = staticPaths;
 
+const currentLang = Astro.currentLocale as Locale;
+const translations = { en, es };
+const t = translations[currentLang]["main"];
 ---
 
-<GlobalLayout description="" >
-    
+<GlobalLayout description={t.description}>
+  <DividedLayout>
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      slot="aside"
+      class="size-full object-cover opacity-0"
+      onloadeddata="this.classList.add('animate-fadeIn')"
+    >
+      <source
+        src="https://res.cloudinary.com/dcav0ojcf/video/upload/v1760146109/videos%20de%20webs%28en%20uso%2C%20no%20borrar%29/modelo_mirando_tih225.mp4"
+        type="video/mp4"
+      />
+    </video>
+    <Hero
+      slot="main"
+      title={t.h1}
+      subtitle={t.p}
+      button={{ label: t.button, to: "works" }}
+      currentLang={currentLang}
+    />
+  </DividedLayout>
+  <Loader subtitle={t.work} />
 </GlobalLayout>
