@@ -1,0 +1,43 @@
+---
+import Instagram from "@assets/icons/Instagram.astro";
+import Linkedin from "@assets/icons/Linkedin.astro";
+import Twitter from "@assets/icons/Twitter.astro";
+import SquareButton from "@components/ui/squareButton.astro";
+
+interface Props {
+  position: string;
+  label: string;
+}
+
+const { position, label } = Astro.props;
+---
+
+<div class={position}>
+  <div class="flex items-center gap-4">
+    <span
+      class="font-title hidden text-[calc(8px+0.446429vw)] font-medium text-white md:block"
+      >{label}
+    </span>
+    <ul class="flex">
+      <li>
+        <SquareButton
+          toExternal="https://www.instagram.com"
+          label="to instagram"
+          color="black"
+          styles="border-r-0"
+        >
+          <Instagram styles="size-4" />
+        </SquareButton>
+      </li>
+      <li>
+        <SquareButton
+          toExternal="https://www.linkedin.com"
+          label="to linkedin"
+          color="black"
+        >
+          <Linkedin styles="size-4" />
+        </SquareButton>
+      </li>
+    </ul>
+  </div>
+</div>

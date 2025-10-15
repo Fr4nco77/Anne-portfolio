@@ -5,6 +5,10 @@ import "@fontsource-variable/ibm-plex-sans";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { ClientRouter } from "astro:transitions";
 import type { Locale } from "@i18n/utils";
+import BtnOPen from "@components/nav/btnOPen.astro";
+import Nav from "@components/nav/nav.astro";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
 
 interface Props {
   title?: string;
@@ -14,6 +18,9 @@ interface Props {
 const lang = Astro.currentLocale as Locale;
 const { href, origin } = Astro.url;
 const { title, description } = Astro.props;
+
+const translations = { en, es };
+const t = translations[lang]["nav"];
 
 const siteTitle = "ANNE";
 const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
@@ -55,16 +62,28 @@ const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
     />
   </head>
   <body>
-    <header
-      class="absolute top-0 left-0 z-10 px-[5vw] py-[clamp(20px,2%,30px)] mix-blend-difference md:px-[2vw]"
+    <div
+      id="wrapper"
+      class="h-screen w-full translate-y-0 transition-transform duration-500"
     >
-      <a
-        href={getRelativeLocaleUrl(lang, "/")}
-        class="font-title text-primary text-lg font-medium md:text-xl xl:text-2xl"
+      <header
+        class="absolute top-0 left-0 z-10 px-[5vw] py-[clamp(20px,2%,30px)] mix-blend-difference md:px-[2vw]"
       >
-        {siteTitle}
-      </a>
-    </header>
-    <slot />
+        <a
+          href={getRelativeLocaleUrl(lang, "/")}
+          class="font-title text-lg font-medium text-black md:text-xl lg:text-white xl:text-2xl"
+        >
+          {siteTitle}
+        </a>
+      </header>
+      <slot />
+    </div>
+    <Nav
+      lang={lang}
+      linksTexts={t.links}
+      followText={t.follow}
+      languageText={t.language}
+    />
+    <BtnOPen closeText={t.close} openText={t.open} />
   </body>
 </html>

@@ -1,0 +1,40 @@
+---
+import { locales } from "@i18n/utils";
+import SquareButton from "@components/ui/squareButton.astro";
+
+interface Props {
+  position: string;
+  label: string;
+}
+
+const { position, label } = Astro.props;
+const { pathname } = Astro.url;
+const cleanPath = pathname.replace(/^\/[a-z]{2}/, "") || "/";
+---
+
+<div class={position}>
+  <div class="flex items-center gap-4">
+    <span
+      class="font-title hidden text-[calc(8px+0.446429vw)] font-medium text-white md:block"
+    >
+      {label}
+    </span>
+    <ul class="flex">
+      {
+        Object.entries(locales).map(([language, label], index, array) => (
+          <li>
+            <SquareButton
+              toLocal={cleanPath}
+              label={`change language to ${label}`}
+              lang={language}
+              color="black"
+              styles={index !== array.length - 1 ? "border-r-0" : undefined}
+            >
+              {label}
+            </SquareButton>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

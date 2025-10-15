@@ -1,4 +1,17 @@
 export default {
+  nav: {
+    open: "Menú",
+    close: "Cerrar",
+    language: "IDIOMA",
+    follow: "SÍGUEME",
+    links: {
+      home: "Inicio",
+      works: "Proyectos",
+      about: "Sobre mí",
+      contact: "Contacto",
+      blog: "Blog",
+    },
+  },
   main: {
     description:
       "Descubre el universo de Anne Dupont, modelo internacional con una trayectoria única en el mundo de la moda. En su portafolio oficial encontrarás todo lo que necesitas para conocerla en profundidad: su historia personal, medidas profesionales, galería de fotos, campañas destacadas, colaboraciones con marcas reconocidas y mucho más.",

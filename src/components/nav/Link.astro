@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  currentLLang: string;
+  currentPage: string;
+  to: string;
+  label: string;
+  image: ImageMetadata;
+}
+
+const { currentLLang, currentPage, to, label, image } = Astro.props;
+---
+
+<a
+  href={getRelativeLocaleUrl(currentLLang, to)}
+  aria-label={`to ${label}`}
+  class="group w-full"
+>
+  <div class="mb-3 flex items-center gap-1.5">
+    <span
+      class:list={[
+        "block rounded-full",
+        currentPage === to
+          ? "bg-accent-secondary size-2.5"
+          : "bg-accent-primary size-0 transition-all duration-300 group-hover:size-2.5",
+      ]}></span>
+    <span
+      class="font-title text-xs font-medium text-white min-[448px]:text-[calc(9.6px+0.535714vw)]"
+      >{label}</span
+    >
+  </div>
+  <div>
+    <Image
+      src={image}
+      alt={label}
+      loading="eager"
+      quality={60}
+      class="object cover aspect-auto w-full"
+    />
+  </div>
+</a>

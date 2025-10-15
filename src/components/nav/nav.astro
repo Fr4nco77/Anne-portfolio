@@ -1,0 +1,98 @@
+---
+import type { LinksLabels } from "@lib/types";
+import Networks from "./networks.astro";
+import Languages from "./languages.astro";
+import home from "@assets/images/nav/home.png";
+import Link from "./Link.astro";
+
+interface Props {
+  followText: string;
+  languageText: string;
+  linksTexts: LinksLabels;
+  lang: string;
+}
+const { followText, languageText, linksTexts, lang } = Astro.props;
+const { pathname } = Astro.url;
+const currentPage = pathname.replace(/^\/[a-z]{2}/, "").split("/")[1] || "/";
+// const images = {home} <== Aquí agrupar todas las imagenes
+---
+
+<nav
+  class="fixed right-0 bottom-0 left-0 h-[400px] translate-y-full bg-black transition-transform duration-500 ease-in-out"
+>
+  <div class="relative flex h-full items-start py-[3vh]">
+    <ul
+      id="scroll-zone"
+      class="scrollbar-hide flex w-max items-center gap-8 overflow-x-auto scroll-smooth px-8"
+    >
+      {
+        Object.entries(linksTexts).map(([key, label]) => (
+          <li class="min-w-32 md:min-w-80 xl:min-w-[40vh]">
+            <Link
+              currentLLang={lang}
+              currentPage={currentPage}
+              to={key === "home" ? "/" : key}
+              label={label}
+              image={home}
+            />
+          </li>
+        ))
+      }
+    </ul>
+    <Languages
+      label={languageText}
+      position="absolute bottom-0 left-0 px-5 py-11"
+    />
+    <Networks
+      label={followText}
+      position="absolute right-0 bottom-0 px-5 py-11"
+    />
+  </div>
+</nav>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    const scrollContainer = document.getElementById("scroll-zone");
+    if (!scrollContainer) return;
+
+    let isHovering = false;
+    let mouseX = 0;
+
+    scrollContainer.addEventListener("mouseenter", () => {
+      isHovering = true;
+    });
+
+    scrollContainer.addEventListener("mouseleave", () => {
+      isHovering = false;
+    });
+
+    scrollContainer.addEventListener("mousemove", (e) => {
+      const rect = scrollContainer.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+    });
+
+    function autoScroll() {
+      if (isHovering) {
+        const rect = scrollContainer.getBoundingClientRect();
+        const width = rect.width;
+        const edgeZone = width * 0.4; // 40% de cada borde
+
+        let speed = 0;
+
+        if (mouseX < edgeZone) {
+          // Más cerca del borde izquierdo → más velocidad
+          speed = -((edgeZone - mouseX) / edgeZone) * 15;
+        } else if (mouseX > width - edgeZone) {
+          // Más cerca del borde derecho → más velocidad
+          speed = ((mouseX - (width - edgeZone)) / edgeZone) * 15;
+        }
+
+        scrollContainer.scrollLeft += speed;
+      }
+
+      requestAnimationFrame(autoScroll);
+    }
+
+    autoScroll();
+  })();
+</script>

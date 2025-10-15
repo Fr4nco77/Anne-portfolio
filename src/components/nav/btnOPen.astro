@@ -1,0 +1,98 @@
+---
+interface Props {
+  openText: string;
+  closeText: string;
+}
+
+const { openText, closeText } = Astro.props;
+---
+
+<!-- Botón flotante con texto circular -->
+<div
+  id="floatingButtonWrapper"
+  class="animate-slideUp fixed bottom-0 left-1/2 z-10 flex -translate-x-1/2 justify-center pb-3 opacity-0 transition-transform duration-500 hover:scale-110 lg:pb-12 lg:[animation-delay:2.5s]"
+>
+  <!-- Botón principal -->
+  <button
+    id="toggleMenuButton"
+    class="bg-accent-primary z-10 size-17 cursor-pointer rounded-full shadow-lg/20 transition-colors duration-500 lg:size-20"
+  ></button>
+
+  <!-- Texto circular SVG -->
+  <svg
+    id="circularTextSVG"
+    viewBox="0 0 130 130"
+    class="pointer-events-none absolute right-[-45px] bottom-[-10px] z-0 transition-transform duration-500 lg:bottom-[25px]"
+  >
+    <defs>
+      <!-- Define el camino circular con radio 30 -->
+      <path
+        id="circularTextPath"
+        d="M65,65 m-30,0 a30,30 0 1,1 60,0 a30,30 0 1,1 -60,0"></path>
+    </defs>
+
+    <!-- Texto posicionado inicialmente abajo -->
+    <g transform="rotate(180 65 65)">
+      <text font-size="1.2em">
+        <textPath
+          id="circularTextLabel"
+          data-open={openText}
+          data-close={closeText}
+          href="#circularTextPath"
+          startOffset="50%"
+          text-anchor="middle"
+          class="transition-all duration-500"
+          fill="#000"
+        >
+          {openText}
+        </textPath>
+      </text>
+    </g>
+  </svg>
+</div>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    // Elementos clave
+    const wrapper = document.getElementById("floatingButtonWrapper");
+    const svg = document.getElementById("circularTextSVG");
+    const textLabel = document.getElementById("circularTextLabel");
+    const openText = textLabel.dataset.open;
+    const closeText = textLabel.dataset.close;
+    const button = document.getElementById("toggleMenuButton");
+
+    const contentWrapper = document.getElementById("wrapper");
+    const nav = document.querySelector("nav");
+
+    let rotation = 0;
+
+    // Animación de rotación continua al hacer hover
+    wrapper.addEventListener("mouseenter", () => {
+      rotation += 180;
+      svg.style.transform = `rotate(${rotation}deg)`;
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      rotation += 180;
+      svg.style.transform = `rotate(${rotation}deg)`;
+    });
+
+    // Toggle de menú al hacer click
+    button.addEventListener("click", () => {
+      const isMenuOpen = textLabel.textContent.trim() === openText;
+
+      // Cambiar texto y color
+      textLabel.textContent = isMenuOpen ? closeText : openText;
+      textLabel.setAttribute("fill", isMenuOpen ? "#fff" : "#000");
+
+      // Alternar clases de navegación y contenido
+      nav.classList.toggle("translate-y-full");
+      contentWrapper.classList.toggle("-translate-y-[400px]");
+      contentWrapper.classList.toggle("translate-y-0");
+
+      // Alternar color del botón
+      button.classList.toggle("bg-accent-primary");
+      button.classList.toggle("bg-accent-secondary");
+    });
+  })();
+</script>
