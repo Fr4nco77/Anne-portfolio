@@ -15,8 +15,7 @@ const { title, subtitle, button, currentLang } = Astro.props;
 ---
 
 <div
-  class="lg:animate-revealY flex size-full flex-col items-center justify-center pt-[100px] pb-[68px] lg:opacity-0"
-  style="animation-delay: 2s"
+  class="animate-revealY flex size-full flex-col items-center justify-center pt-[100px] pb-[68px] lg:opacity-0 lg:[animation-delay:2s]"
 >
   <h1
     class="title text-center text-[max(16px,16.5333vw)] uppercase min-[448px]:text-[70px] md:text-[80px] lg:text-[100px] xl:text-[max(16px,6vw)]"
@@ -28,7 +27,13 @@ const { title, subtitle, button, currentLang } = Astro.props;
   >
     {subtitle}
   </p>
-  <SquareButton to={button.to} lang={currentLang} styles="mt-10">
+  <SquareButton
+    toLocal={button.to}
+    lang={currentLang}
+    label={button.to}
+    color="white"
+    styles="mt-10"
+  >
     {button.label}
   </SquareButton>
 </div>
