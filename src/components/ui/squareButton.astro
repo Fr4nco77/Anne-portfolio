@@ -2,18 +2,39 @@
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 interface Props {
-  to: string;
-  lang: string;
+  toExternal?: string;
+  toLocal?: string;
+  lang?: string;
+  label: string;
+  color: "white" | "black";
   styles?: string;
 }
 
-const { to, lang, styles } = Astro.props;
+const { toLocal, toExternal, lang, label, color, styles } = Astro.props;
+
+const href = toExternal
+  ? toExternal
+  : toLocal
+    ? getRelativeLocaleUrl(lang!, toLocal)
+    : "#";
+
+const externalAttrs = toExternal
+  ? {
+      target: "_blank",
+      rel: "noopener noreferrer",
+    }
+  : {};
 ---
 
 <a
-  href={getRelativeLocaleUrl(lang, to)}
+  href={href}
+  {...externalAttrs}
+  aria-label={label}
   class:list={[
-    "hover:bg-black font-title hover:text-white flex w-auto cursor-pointer items-center justify-center border px-5 py-2 text-xs font-medium transition-colors duration-500",
+    "font-title flex w-auto cursor-pointer items-center justify-center border px-5 py-2 text-xs font-medium transition-colors duration-500",
+    color === "white"
+      ? "hover:bg-black hover:text-white"
+      : "text-white hover:border-white hover:bg-white hover:text-black",
     styles,
   ]}
 >
