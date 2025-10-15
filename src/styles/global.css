@@ -3,12 +3,14 @@
 
 @theme inline {
   --font-title: "IBM Plex Sans Variable", sans-serif;
-  --color-accent: #c38133;
+  --color-accent-primary: #c38133;
+  --color-accent-secondary: #3c4cc7;
   --animate-fadeIn: fadeIn 1s ease-out forwards;
   --animate-fadeOut: fadeOut 1s ease-in forwards;
   --animate-revealX: revealX 1s ease-in-out forwards;
   --animate-revealY: revealY 1s ease-in-out forwards;
   --animate-loader: loader 1s ease-in-out forwards;
+  --animate-slideUp: slideUp 0.5s ease-out forwards;
 
   @keyframes fadeIn {
     0% {
@@ -45,7 +47,7 @@
       opacity: 1;
     }
     100% {
-      clip-path: inset(0 -20px 0 -20px);
+      clip-path: inset(0 -100px 0 -100px);
       opacity: 1;
     }
   }
@@ -62,6 +64,17 @@
     100% {
       width: 50%;
       opacity: 0;
+    }
+  }
+
+  @keyframes slideUp {
+    0% {
+      opacity: 1;
+      transform: translateY(100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
@@ -85,5 +98,12 @@
     font-family: "IBM Plex Sans Variable", sans-serif;
     letter-spacing: -0.06em;
     line-height: 0.85;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
