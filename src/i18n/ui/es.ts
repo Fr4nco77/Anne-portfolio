@@ -20,4 +20,37 @@ export default {
     p: "Modelo profesional que combina estilo & autenticidad, creando imágenes que conectan con marcas y audiencias.",
     button: "MI TRABAJO",
   },
+  contact: {
+    title: "Contacto",
+    description:
+      "¿Te gustaría colaborar con Anne Dupont o conocer más sobre su trabajo como modelo profesional? Anne está disponible para sesiones fotográficas, campañas publicitarias, pasarela y proyectos editoriales",
+    h1: "Ponte en contacto",
+    data: {
+      form: {
+        title: "inicia un proyecto",
+        label: "Formulario de contacto",
+      },
+      email: {
+        title: "Solo di ‘Hola’",
+        label: "hello@annedupont.com",
+      },
+      phone: {
+        title: "Llámame",
+        label: "+46 70 123 45 67",
+      },
+      study: {
+        title: "visita mi estudio",
+        label: "Sveavägen 123 | 113 50 Estocolmo",
+      },
+      networks: {
+        title: "Sígueme",
+      },
+    },
+  },
+  form: {
+    title: "Formulario de Contacto",
+    description:
+      "¿Te gustaría colaborar con Anne Dupont, modelo profesional? Completa el formulario de contacto y conecta directamente con Anne para propuestas de trabajo, sesiones fotográficas, campañas publicitarias o eventos. Recibe una respuesta rápida y atención personalizada. ¡Haz que tu proyecto destaque con el talento de Anne!",
+    h1: "Reserva a Anne para tu próximo proyecto",
+  },
 };
