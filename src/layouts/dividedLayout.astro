@@ -2,9 +2,9 @@
   <section class="hidden h-screen w-full bg-black lg:block">
     <slot name="aside" />
   </section>
-  <main class="h-screen w-full lg:overflow-y-auto">
+  <main class="min-h-screen w-full lg:overflow-y-auto">
     <div
-      class="mx-auto size-full max-w-[378px] md:max-w-[432px] 2xl:max-w-[572px]"
+      class="mx-auto w-full min-h-screen max-w-[378px] md:max-w-[432px] 2xl:max-w-[572px]"
     >
       <slot name="main" />
     </div>
