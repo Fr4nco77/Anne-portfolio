@@ -1,0 +1,92 @@
+---
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import { locales, staticPaths } from "@i18n/utils";
+import DividedLayout from "@layouts/dividedLayout.astro";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { Image } from "astro:assets";
+import contact from "@assets/images/contact.jpg";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import ContactData from "@components/contact/contactData.astro";
+import PingButton from "@components/ui/pingButton.astro";
+export const getStaticPaths = staticPaths;
+
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["contact"];
+---
+
+<GlobalLayout title={t.title} description={t.description}>
+  <DividedLayout>
+    <Image
+      id="contactImage"
+      src={contact}
+      alt="Anne Dupont"
+      loading="eager"
+      class="size-full overflow-hidden object-cover opacity-0 transition-opacity duration-500 ease-in-out"
+      slot="aside"
+    />
+    <div slot="main" class="flex size-full flex-col gap-10 pt-14 pb-5">
+      <h1
+        class="text-4xl min-[448px]:text-[calc(32px+1.78571vw)] 2xl:text-[calc(25.2px+0.75vw)]"
+      >
+        {t.h1}
+      </h1>
+      <ContactData title={t.data.form.title}>
+        <PingButton
+          to={getRelativeLocaleUrl(currentLang, "contact-form")}
+          label={t.data.form.label}
+        />
+      </ContactData>
+      <ContactData title={t.data.email.title}>
+        <PingButton
+          to="mailto:hello@annedupont.com"
+          label={t.data.email.label}
+        />
+      </ContactData>
+      <ContactData title={t.data.phone.title}>
+        <PingButton to="tel:+46701234567" label={t.data.phone.label} />
+      </ContactData>
+      <ContactData title={t.data.study.title}>
+        <PingButton
+          to="https://www.google.com/maps?q=Sveavägen+123,+113+50+Stockholm"
+          label={t.data.study.label}
+          attrExternal={{ target: "_blank" }}
+        />
+      </ContactData>
+      <ContactData title={t.data.networks.title}>
+        <div class="flex flex-wrap items-center gap-2">
+          <PingButton
+            to="https://www.instagram.com/"
+            label="Instagram"
+            attrExternal={{ target: "_blank" }}
+          />
+          <PingButton
+            to="https://www.linkedin.com/in/"
+            label="LinkedIn"
+            attrExternal={{ target: "_blank" }}
+          />
+          <PingButton
+            to="https://www.threads.net/"
+            label="Threads"
+            attrExternal={{ target: "_blank" }}
+          />
+          <PingButton
+            to="https://www.behance.net/"
+            label="Behance"
+            attrExternal={{ target: "_blank" }}
+          />
+        </div>
+      </ContactData>
+    </div>
+  </DividedLayout>
+</GlobalLayout>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    const image = document.getElementById("contactImage");
+    image?.addEventListener("load", () => {
+      image.classList.remove("opacity-0");
+    });
+  })();
+</script>
