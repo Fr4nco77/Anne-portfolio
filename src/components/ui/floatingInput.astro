@@ -1,0 +1,25 @@
+---
+interface Props {
+  id: string;
+  type: HTMLInputElement["type"];
+  label: string;
+}
+
+const { id, type, label } = Astro.props;
+---
+
+<div class="relative w-full">
+  <input
+    id={id}
+    type={type}
+    required
+    class="peer size-full border px-2 py-4 text-sm placeholder-transparent outline-0 user-invalid:border-red-600"
+    placeholder=" "
+    minlength="2"
+  />
+  <label
+    for={id}
+    class="title absolute top-1.5 left-2 text-[10px] uppercase transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-xs peer-user-invalid:text-red-600 peer-focus:top-1.5 peer-focus:translate-y-0 peer-focus:text-[10px] peer-focus:opacity-80"
+    >{label}</label
+  >
+</div>

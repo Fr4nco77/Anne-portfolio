@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  text: string;
+  position: string;
+}
+
+const { title, text, position } = Astro.props;
+---
+
+<div
+  id="toast"
+  class:list={[
+    "pointer-events-none fixed w-full max-w-80 bg-black p-4 text-white opacity-0 shadow-lg transition-opacity duration-500 md:max-w-96",
+    position,
+  ]}
+>
+  <h3 class="text-accent-primary title mb-1 text-sm font-semibold">
+    {title}
+  </h3>
+  <p class="text-xs leading-relaxed">
+    {text}
+  </p>
+</div>
