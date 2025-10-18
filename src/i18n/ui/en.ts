@@ -49,7 +49,27 @@ export default {
   },
   form: {
     title: "Contact Form",
-    description: "Would you like to collaborate with Anne Dupont, a professional model? Fill out the contact form and connect directly with Anne for job proposals, photo shoots, advertising campaigns, or events. Expect a prompt response and personalized attention. Make your project stand out with Anne's talent!",
+    description:
+      "Would you like to collaborate with Anne Dupont, a professional model? Fill out the contact form and connect directly with Anne for job proposals, photo shoots, advertising campaigns, or events. Expect a prompt response and personalized attention. Make your project stand out with Anne's talent!",
     h1: "Book Anne for Your Next Project",
-  }
+    inputs: {
+      email: "email",
+      firstName: "firstName",
+      lastName: "lastName",
+      company: "company",
+    },
+    checks: {
+      title: "i'm interested in:",
+      editorial: "Fashion Editorials",
+      advertising: "Commercial Advertising",
+      runway: "Runway Shows",
+      collaboration: "Brand Collaborations",
+    },
+    textArea: "share your project details:",
+    submit: "submit",
+    toast: {
+      title: "✨ Message Sent Successfully",
+      text: "Thank you for reaching out. Your message has been received and will be reviewed shortly.",
+    },
+  },
 };

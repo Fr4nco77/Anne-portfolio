@@ -1,0 +1,104 @@
+---
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import { locales, staticPaths } from "@i18n/utils";
+import DividedLayout from "@layouts/dividedLayout.astro";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { Image } from "astro:assets";
+import form from "@assets/images/form.jpg";
+import FloatingInput from "@components/ui/floatingInput.astro";
+import CheckInput from "@components/ui/checkInput.astro";
+import Toast from "@components/ui/toast.astro";
+export const getStaticPaths = staticPaths;
+
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["form"];
+---
+
+<GlobalLayout title={t.title} description={t.description}>
+  <DividedLayout>
+    <Image
+      id="formImage"
+      src={form}
+      alt="Anne Dupont"
+      loading="eager"
+      class="size-full overflow-hidden object-cover opacity-0 transition-opacity duration-500 ease-in-out"
+      slot="aside"
+    />
+    <div
+      slot="main"
+      class="flex size-full flex-col gap-11 px-4 pt-14 pb-24 lg:gap-16 lg:pb-14"
+    >
+      <h1
+        class="text-4xl min-[448px]:text-[calc(32px+1.78571vw)] 2xl:text-[calc(25.2px+0.75vw)]"
+      >
+        {t.h1}
+      </h1>
+      <form id="contactForm" class="mx-auto w-full max-w-96 space-y-10">
+        <div class="w-full space-y-2">
+          <FloatingInput id="email" type="email" label={t.inputs.email} />
+          <FloatingInput
+            id="firstName"
+            type="text"
+            label={t.inputs.firstName}
+          />
+          <FloatingInput id="lastName" type="text" label={t.inputs.lastName} />
+          <FloatingInput id="company" type="text" label={t.inputs.company} />
+        </div>
+        <div class="w-full space-y-4">
+          <span class="font-title block text-sm font-medium uppercase"
+            >{t.checks.title}</span
+          >
+          <CheckInput id="editorial" label={t.checks.editorial} />
+          <CheckInput id="advertising" label={t.checks.advertising} />
+          <CheckInput id="runway" label={t.checks.runway} />
+          <CheckInput id="collaboration" label={t.checks.collaboration} />
+        </div>
+        <div class="w-full space-y-4">
+          <label
+            for="details"
+            class="font-title block text-sm font-medium uppercase"
+            >{t.textArea}</label
+          >
+          <textarea
+            id="details"
+            class="min-h-28 w-full border p-2 text-sm outline-none"></textarea>
+        </div>
+        <button
+          type="submit"
+          class="title h-12 w-full cursor-pointer border uppercase transition-colors duration-300 hover:bg-black hover:text-white"
+        >
+          {t.submit}
+        </button>
+      </form>
+      <Toast
+        title={t.toast.title}
+        text={t.toast.text}
+        position="top-4 right-4"
+      />
+    </div>
+  </DividedLayout>
+</GlobalLayout>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    const image = document.getElementById("formImage");
+    image?.addEventListener("load", () => {
+      image.classList.remove("opacity-0");
+    });
+
+    const form = document.getElementById("contactForm");
+    const toast = document.getElementById("toast");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.reset();
+
+      toast.classList.remove("opacity-0");
+      setTimeout(() => {
+        toast.classList.add("opacity-0");
+      }, 5000);
+    });
+  })();
+</script>
