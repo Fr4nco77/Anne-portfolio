@@ -13,11 +13,12 @@ import es from "@i18n/ui/es";
 interface Props {
   title?: string;
   description: string;
+  monoLayout?: boolean;
 }
 
 const lang = Astro.currentLocale as Locale;
 const { href, origin } = Astro.url;
-const { title, description } = Astro.props;
+const { title, description, monoLayout } = Astro.props;
 
 const translations = { en, es };
 const t = translations[lang]["nav"];
@@ -71,7 +72,10 @@ const pageTitle = [siteTitle, title].filter(Boolean).join(" | ");
       >
         <a
           href={getRelativeLocaleUrl(lang, "/")}
-          class="font-title text-lg font-medium text-black md:text-xl lg:text-white xl:text-2xl"
+          class:list={[
+            "font-title text-lg font-medium md:text-xl xl:text-2xl",
+            !monoLayout ? "text-black lg:text-white" : "text-black",
+          ]}
         >
           {siteTitle}
         </a>
