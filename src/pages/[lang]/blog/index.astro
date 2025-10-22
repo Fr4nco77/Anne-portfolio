@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+import PostCard from "@components/blog/postCard.astro";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import { locales } from "@i18n/utils";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blogs");
+
+  return Object.keys(locales).flatMap((locale) => {
+    const filtered = posts
+      .filter((post) => post.id.startsWith(`${locale}/`))
+      .map(({ id, data }) => ({
+        slug: id.split("/")[1],
+        title: data.title,
+        category: data.category,
+      }));
+
+    return {
+      params: { lang: locale },
+      props: { posts: filtered },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { posts } = Astro.props;
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["blog"];
+---
+
+<GlobalLayout title={t.title} description={t.description} monoLayout>
+  <div
+    class="flex min-h-screen w-full flex-col items-center justify-center px-4 py-[18lvh]"
+  >
+    {
+      posts.map(({ slug, title, category }) => (
+        <PostCard
+          title={title}
+          category={category}
+          slug={slug}
+          lang={currentLang}
+          button={t.postButton}
+        />
+      ))
+    }
+  </div>
+</GlobalLayout>

@@ -72,4 +72,10 @@ export default {
       text: "Thank you for reaching out. Your message has been received and will be reviewed shortly.",
     },
   },
+  blog: {
+    title: "Blog",
+    description:
+      "Discover the world of Anne Dupont, a rising model with a unique style and authentic vision. In this blog, Anne shares behind-the-scenes experiences, fashion tips, current trends, and personal reflections on her journey in the modeling industry.",
+    postButton: "read article",
+  },
 };

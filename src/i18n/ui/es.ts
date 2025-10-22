@@ -72,4 +72,10 @@ export default {
       text: "Gracias por ponerte en contacto. Tu mensaje ha sido recibido y será revisado en breve.",
     },
   },
+  blog: {
+    title: "Blog",
+    description:
+      "Descubre el mundo de Anne Dupont, una modelo emergente con un estilo único y una visión auténtica. En este blog, Anne comparte experiencias detrás de cámaras, consejos de moda, tendencias actuales y reflexiones personales sobre su trayectoria en la industria del modelaje.",
+    postButton: "leer artículo",
+  },
 };

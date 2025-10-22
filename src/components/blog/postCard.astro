@@ -1,0 +1,64 @@
+---
+import SquareButton from "@components/ui/squareButton.astro";
+
+interface Props {
+  category: string;
+  title: string;
+  slug: string;
+  button: string;
+  lang: string;
+}
+
+const { category, title, slug, button, lang } = Astro.props;
+---
+
+<div
+  class="post flex max-w-[82vw] scale-90 flex-col items-center justify-center gap-8 py-16 font-medium opacity-40 transition-all duration-500 ease-in-out min-[440px]:max-w-[52vw] lg:max-w-[59vw] xl:max-w-[50vw]"
+>
+  <span
+    class="title text-sm min-[448px]:text-[calc(9.6px+0.535714vw)] min-[1440px]:text-[calc(8.4px+0.25vw)] lg:text-sm"
+  >
+    {category}
+  </span>
+  <h3
+    class="title text-center text-3xl uppercase min-[440px]:text-[calc(25.6px+1.42857vw)] min-[1440px]:text-[calc(39.2px+1.16667vw)] lg:text-6xl"
+  >
+    {title}
+  </h3>
+  <SquareButton
+    toLocal={`blog/${slug}`}
+    lang={lang}
+    color="white"
+    label="Read Article"
+    styles="uppercase font-medium"
+    >{button}
+  </SquareButton>
+</div>
+
+<script is:inline data-astro-rerun>
+  (function () {
+    const posts = document.querySelectorAll(".post");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          if (entry.intersectionRatio > 0.5) {
+            el.classList.add("opacity-100", "scale-100");
+            el.classList.remove("opacity-40", "scale-90");
+          } else {
+            el.classList.add("opacity-40", "scale-90");
+            el.classList.remove("opacity-100", "scale-100");
+          }
+        });
+      },
+      { threshold: [0, 0.5, 1] },
+    );
+
+    posts.forEach((post) => observer.observe(post));
+
+    window.addEventListener("astro:before-swap", () => {
+      observer.disconnect();
+    });
+  })();
+</script>
