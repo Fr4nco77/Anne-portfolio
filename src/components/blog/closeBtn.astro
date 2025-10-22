@@ -1,0 +1,66 @@
+---
+import { locales } from "@i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const text = {
+  en: "Close",
+  es: "Cerrar",
+};
+---
+
+<!-- Botón flotante con texto circular -->
+<div
+  id="floatingCloseButtonWrapper"
+  class="animate-slideUp fixed bottom-0 left-1/2 z-11 flex -translate-x-1/2 justify-center pb-3 opacity-0 transition-transform duration-500 hover:scale-110 lg:pb-12 lg:[animation-delay:2.5s]"
+>
+  <!-- Botón principal -->
+  <a
+    href={getRelativeLocaleUrl(currentLang, "blog")}
+    class="bg-accent-primary z-11 size-17 cursor-pointer rounded-full shadow-lg/20 transition-colors duration-500 lg:size-20"
+  ></a>
+
+  <!-- Texto circular SVG -->
+  <svg
+    id="circularCloseTextSVG"
+    viewBox="0 0 130 130"
+    class="pointer-events-none absolute right-[-45px] bottom-[-10px] z-0 transition-transform duration-500 lg:bottom-[25px]"
+  >
+    <defs>
+      <path d="M65,65 m-30,0 a30,30 0 1,1 60,0 a30,30 0 1,1 -60,0"></path>
+    </defs>
+    <g transform="rotate(180 65 65)">
+      <text font-size="1.2em">
+        <textPath
+          href="#circularTextPath"
+          startOffset="50%"
+          text-anchor="middle"
+          class="transition-all duration-500"
+          fill="#000"
+        >
+          {text[currentLang]}
+        </textPath>
+      </text>
+    </g>
+  </svg>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const wrapper = document.getElementById("floatingCloseButtonWrapper");
+    const svg = document.getElementById("circularCloseTextSVG");
+
+    let rotation = 0;
+
+    // Animación de rotación continua al hacer hover
+    wrapper.addEventListener("mouseenter", () => {
+      rotation += 180;
+      svg.style.transform = `rotate(${rotation}deg)`;
+    });
+
+    wrapper.addEventListener("mouseleave", () => {
+      rotation += 180;
+      svg.style.transform = `rotate(${rotation}deg)`;
+    });
+  })();
+</script>

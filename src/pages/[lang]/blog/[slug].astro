@@ -1,0 +1,138 @@
+---
+import type { GetStaticPaths } from "astro";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import CloseBtn from "@components/blog/closeBtn.astro";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("blogs");
+
+  return posts.map((post) => {
+    const [lang, slug] = post.id.split("/");
+    return {
+      params: {
+        lang,
+        slug,
+      },
+      props: {
+        post,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, category, images } = post.data;
+---
+
+<GlobalLayout title={title} description={description}>
+  <div class="grid min-h-screen w-full lg:grid-cols-2">
+    <section class="hidden h-screen w-full bg-black lg:block">
+      <img
+        id="dinamicImg"
+        src=""
+        alt="dinamic fashion scene"
+        loading="eager"
+        data-images={JSON.stringify(images)}
+        class="size-full object-cover opacity-0 transition-opacity duration-700 ease-in-out"
+        aria-hidden={images.length ? "false" : "true"}
+      />
+    </section>
+    <main
+      class="prose prose-lg md:prose-xl 2xl:prose-2xl relative mx-auto h-screen w-full overflow-y-auto px-4 py-[120px]"
+    >
+      <div class="flex flex-col gap-10 text-center">
+        <span class="font-title font-medium">
+          {category}
+        </span>
+        <h1 class="title text-[calc(48px+2.67857vw)] font-medium">
+          {title}
+        </h1>
+      </div>
+      <div class="mx-auto max-w-[378px] md:max-w-[432px] xl:max-w-[572px]">
+        <Content />
+      </div>
+    </main>
+  </div>
+</GlobalLayout>
+<CloseBtn />
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const imgEl = document.getElementById("dinamicImg");
+    let images;
+
+    try {
+      images = JSON.parse(imgEl.dataset.images || "[]");
+    } catch (e) {
+      images = [];
+    }
+
+    if (!Array.isArray(images) || images.length === 0) {
+      return;
+    }
+
+    let currentIndex = 0;
+    let intervalId = null;
+    const CHANGE_MS = 7000;
+    const preloaded = [];
+
+    function preloadAll() {
+      images.forEach((it) => {
+        const i = new Image();
+        i.src = it.src || it;
+        preloaded.push(i);
+      });
+    }
+
+    function setImage(index) {
+      const src = images[index].src;
+      // fade out -> change src -> fade in
+      imgEl.classList.add("opacity-0");
+      // allow CSS transition to run then swap
+      setTimeout(() => {
+        imgEl.src = src;
+        imgEl.onload = () => {
+          imgEl.classList.remove("opacity-0");
+        };
+      }, 200);
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      setImage(currentIndex);
+    }
+
+    // iniciar
+    preloadAll();
+    setImage(currentIndex);
+
+    // cambiar periódicamente
+    intervalId = setInterval(nextImage, CHANGE_MS);
+
+    // pausar en hover para mejor UX y ahorro
+    imgEl.addEventListener("mouseenter", () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    });
+    imgEl.addEventListener("mouseleave", () => {
+      if (!intervalId) intervalId = setInterval(nextImage, CHANGE_MS);
+    });
+
+    // pausar cuando la pestaña no está visible
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      } else {
+        if (!intervalId) intervalId = setInterval(nextImage, CHANGE_MS);
+      }
+    });
+  })();
+</script>
