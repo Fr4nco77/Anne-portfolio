@@ -1,3 +1,5 @@
+import { manifest } from "astro:ssr-manifest";
+
 export default {
   nav: {
     open: "Menu",
@@ -77,5 +79,62 @@ export default {
     description:
       "Discover the world of Anne Dupont, a rising model with a unique style and authentic vision. In this blog, Anne shares behind-the-scenes experiences, fashion tips, current trends, and personal reflections on her journey in the modeling industry.",
     postButton: "read article",
+  },
+  about: {
+    title: "About Me",
+    description:
+      "Get to know Anne Dupont, a professional model with an impressive career in the fashion industry. From her beginnings to her rise as a prominent figure, discover her story, achievements, and the passion that drives her to shine in every project.",
+    hero: {
+      title:
+        "The camera speaks for me, the runway tells my story, and fashion is how I express myself.",
+      manifestBtn: "Read Manifest",
+    },
+    manifesto: {
+      title: "My Manifesto",
+      paragraphs: [
+        "I believe in beauty that doesn't demand attention; it reveals itself.",
+        "In strength that rises from silence, from a glance, from a subtle gesture.",
+        "I am not just an image: I am a story, movement, and emotion.",
+        "Every step I take, every pose I hold, is a way to speak without words.",
+        "Fashion is my language, but authenticity is my voice.",
+        "I don't aim to fit in; I aim to expand what it means to be a model.",
+        "I work with intention, choose with awareness, and show up with truth.",
+        "Because being a model isn't about representing an ideal; it's about embodying what's real.",
+        "I am Anne Dupont, and this is my manifesto.",
+      ],
+    },
+    stats: {
+      label: "Physical Measurements",
+      data: [
+        { label: "Height", data: "1.75 m" },
+        { label: "Weight", data: "55 kg" },
+        { label: "Clothing Size", data: "36 EU / S" },
+        { label: "Shoe Size", data: "38 EU / 7 US" },
+        { label: "Bust", data: "85 cm" },
+        { label: "Waist", data: "60 cm" },
+        { label: "Hips", data: "90 cm" },
+        { label: "Hair Color", data: "Natural Blonde" },
+        { label: "Eye Color", data: "Light Blue" },
+        { label: "Skin Tone", data: "Fair" },
+        { label: "Body Type", data: "Slim" },
+      ],
+    },
+    profile: {
+      label: "Professional Profile",
+      data: [
+        { label: "Years of Experience", data: "6" },
+        { label: "International Campaigns", data: "12" },
+        { label: "Runway Shows", data: "25" },
+        { label: "Awards Received", data: "3" },
+        { label: "Agencies Represented", data: "2" },
+        { label: "Available for Travel", data: "Yes" },
+        { label: "Current Residence", data: "Stockholm" },
+        { label: "Specialization", data: "Editorial & Runway" },
+      ],
+    },
+    cta: {
+      ctaText: "If your project seeks an authentic, versatile presence with international experience, I'd be delighted to explore how we can work together.",
+      ctaButtonLabel: "Start collaboration",
+    },
   },
 };

@@ -78,4 +78,61 @@ export default {
       "Descubre el mundo de Anne Dupont, una modelo emergente con un estilo único y una visión auténtica. En este blog, Anne comparte experiencias detrás de cámaras, consejos de moda, tendencias actuales y reflexiones personales sobre su trayectoria en la industria del modelaje.",
     postButton: "leer artículo",
   },
+  about: {
+    title: "Sobre mí",
+    description:
+      "Conoce a Anne Dupont, una modelo profesional con una trayectoria impresionante en la industria de la moda. Desde sus inicios hasta su ascenso como una figura destacada, descubre su historia, logros y la pasión que la impulsa a seguir brillando en cada proyecto.",
+    hero: {
+      title:
+        "La cámara habla por mí, la pasarela cuenta mi historia y la moda es mi forma de expresión.",
+      manifestBtn: "Leer manifiesto",
+    },
+    manifesto: {
+      title: "Mi Manifiesto",
+      paragraphs: [
+        "Creo en una belleza que no exige atención; se revela por sí sola.",
+        "En la fuerza que surge del silencio, de una mirada, de un gesto sutil.",
+        "No soy solo una imagen: soy historia, movimiento y emoción.",
+        "Cada paso que doy, cada pose que sostengo, es una forma de hablar sin palabras.",
+        "La moda es mi lenguaje, pero la autenticidad es mi voz.",
+        "No busco encajar; busco expandir lo que significa ser modelo.",
+        "Trabajo con intención, elijo con conciencia y me muestro con verdad.",
+        "Porque ser modelo no es representar un ideal; es encarnar lo real.",
+        "Soy Anne Dupont, y este es mi manifiesto.",
+      ],
+    },
+    stats: {
+      label: "Medidas físicas",
+      data: [
+        { label: "Altura", data: "1.75 m" },
+        { label: "Peso", data: "55 kg" },
+        { label: "Talla de ropa", data: "36 EU / S" },
+        { label: "Talla de calzado", data: "38 EU / 7 US" },
+        { label: "Busto", data: "85 cm" },
+        { label: "Cintura", data: "60 cm" },
+        { label: "Cadera", data: "90 cm" },
+        { label: "Color de cabello", data: "Rubio natural" },
+        { label: "Color de ojos", data: "Celestes" },
+        { label: "Tipo de piel", data: "Clara" },
+        { label: "Complexión", data: "Delgada" },
+      ],
+    },
+    profile: {
+      label: "Perfil Profesional",
+      data: [
+        { label: "Años de experiencia", data: "6" },
+        { label: "Campañas internacionales", data: "12" },
+        { label: "Pasarelas recorridas", data: "25" },
+        { label: "Premios recibidos", data: "3" },
+        { label: "Agencias representadas", data: "2" },
+        { label: "Disponibilidad para viajar", data: "Sí" },
+        { label: "Residencia actual", data: "Estocolmo" },
+        { label: "Especialización", data: "Editorial y pasarela" },
+      ],
+    },
+    cta: {
+      ctaText: "Si tu proyecto busca una presencia auténtica, versátil y con experiencia internacional, estaré encantada de explorar cómo podemos trabajar juntos.",
+      ctaButtonLabel: "Iniciar colaboración",
+    },
+  },
 };
