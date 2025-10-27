@@ -1,0 +1,33 @@
+---
+import Hero from "@components/about/hero.astro";
+import Images from "@components/about/images.astro";
+import Manifesto from "@components/about/manifesto.astro";
+import Stats from "@components/about/stats.astro";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import { locales, staticPaths } from "@i18n/utils";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { Image } from "astro:assets";
+import profileImage from "@assets/images/about/profile6.jpg";
+import CTA from "@components/about/CTA.astro";
+export const getStaticPaths = staticPaths;
+
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["about"];
+---
+
+<Manifesto title={t.manifesto.title} paragraphs={t.manifesto.paragraphs} />
+<GlobalLayout title={t.title} description={t.description} monoLayout>
+  <main class="flex size-full flex-col pt-28">
+    <Hero title={t.hero.title} manifestBtn={t.hero.manifestBtn} />
+    <Images />
+    <Stats label={t.stats.label} data={t.stats.data} />
+    <Stats
+      label={t.profile.label}
+      data={t.profile.data}
+      styles="bg-[#F2EFE6] lg:pt-[5.5rem]"
+    />
+    <CTA lang={currentLang} texts={t.cta} />
+  </main>
+</GlobalLayout>

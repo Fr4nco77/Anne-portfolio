@@ -1,0 +1,38 @@
+---
+interface Props {
+  title: string;
+  paragraphs: string[];
+}
+
+const { title, paragraphs } = Astro.props;
+---
+
+<div
+  id="manifest"
+  class="scrollbar-hide fixed inset-y-0 left-0 z-30 h-screen w-[80vw] -translate-x-full overflow-y-auto bg-black text-white opacity-0 transition-all duration-700 ease-in-out"
+>
+  <section
+    class="pt-[4.5rem] pr-8 pb-5 pl-5 md:pt-[6.25rem] md:pr-40 md:pb-8 md:pl-8"
+  >
+    <header
+      class="title mb-14 text-center text-sm font-medium uppercase min-[440px]:text-base min-[1440px]:text-2xl md:mb-16 md:text-left lg:text-xl"
+    >
+      <h2>{title}</h2>
+    </header>
+    <main>
+      <div
+        class="space-y-12 text-2xl min-[440px]:text-[calc(19.2px+1.07143vw)] min-[1440px]:text-[calc(35px+1.04167vw)] lg:text-[50px] lg:leading-14"
+      >
+        {
+          paragraphs.map((p, index) => {
+            if (index === 0) {
+              return <p class="md:indent-5">{p}</p>;
+            } else {
+              return <p>{p}</p>;
+            }
+          })
+        }
+      </div>
+    </main>
+  </section>
+</div>

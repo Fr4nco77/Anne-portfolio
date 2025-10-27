@@ -1,0 +1,89 @@
+---
+// src/components/about/horizontalScroll.astro
+import { Image } from "astro:assets";
+import p1 from "@assets/images/about/profile1.jpg";
+import p2 from "@assets/images/about/profile2.jpg";
+import p3 from "@assets/images/about/profile3.jpg";
+import p4 from "@assets/images/about/profile4.jpg";
+import p5 from "@assets/images/about/profile5.jpg";
+const images = [p1, p2, p3, p4, p5];
+---
+
+<section class="relative px-6 pb-10">
+  <div class="sticky top-0 h-screen overflow-hidden">
+    <div
+      id="hs-track"
+      class="flex h-full items-center gap-6 will-change-transform"
+    >
+      {
+        images.map((src, i) => (
+          <Image
+            src={src}
+            alt={`Profile ${i + 1}`}
+            class="h-[80vh] w-auto"
+            loading="lazy"
+            decoding="async"
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <div id="hs-spacer" class="w-full" aria-hidden="true"></div>
+</section>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const track = document.getElementById("hs-track");
+    const spacer = document.getElementById("hs-spacer");
+
+    const getVH = () =>
+      window.innerHeight || document.documentElement.clientHeight;
+
+    function recalc() {
+      const overflow = Math.max(0, track.scrollWidth - window.innerWidth);
+      spacer.style.height = getVH() + overflow + "px";
+    }
+
+    let rafId = null;
+    function onScroll() {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const rect = spacer.getBoundingClientRect();
+        const vh = getVH();
+        if (rect.top <= 0 && rect.bottom >= vh) {
+          const scrolled = Math.min(
+            spacer.offsetHeight - vh,
+            Math.abs(rect.top),
+          );
+          const progress =
+            spacer.offsetHeight - vh
+              ? scrolled / (spacer.offsetHeight - vh)
+              : 0;
+          const maxTranslate = Math.max(
+            0,
+            track.scrollWidth - window.innerWidth,
+          );
+          track.style.transform = `translateX(${-progress * maxTranslate}px)`;
+        } else if (rect.top > 0) {
+          track.style.transform = "translateX(0)";
+        } else {
+          const maxTranslate = Math.max(
+            0,
+            track.scrollWidth - window.innerWidth,
+          );
+          track.style.transform = `translateX(${-maxTranslate}px)`;
+        }
+        rafId = null;
+      });
+    }
+
+    window.addEventListener("load", recalc);
+    window.addEventListener("resize", recalc, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // recalcular cuando cambian imágenes
+    const ro = new ResizeObserver(recalc);
+    ro.observe(track);
+  })();
+</script>

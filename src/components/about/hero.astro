@@ -1,0 +1,58 @@
+---
+interface Props {
+  title: string;
+  manifestBtn: string;
+}
+
+const { title, manifestBtn } = Astro.props;
+---
+
+<div class="px-6 pb-32 md:max-w-[78vw] lg:pb-60">
+  <h1
+    class="mb-7 text-4xl min-[448px]:text-[calc(32px+1.78571vw)] min-[1440px]:text-[calc(49px+1.45833vw)] lg:mb-12 lg:text-7xl"
+  >
+    {title}
+  </h1>
+  <button
+    id="readManifestBtn"
+    class="group flex cursor-pointer items-center gap-1.5"
+  >
+    <span
+      class="bg-accent-primary block size-0 rounded-full transition-all duration-300 group-hover:size-2.5"
+    ></span>
+    <span
+      class="font-title block text-sm font-medium uppercase min-[448px]:text-[calc(9.6px+0.535714vw)] min-[1440px]:text-[calc(11.2px+0.333333vw)] lg:text-base"
+      >{manifestBtn}</span
+    >
+  </button>
+  <div
+    id="overlayAbout"
+    class="pointer-events-none fixed inset-0 z-20 size-full cursor-pointer bg-black/40 opacity-0 backdrop-blur-sm transition-opacity duration-700 ease-in-out"
+  >
+  </div>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const btn = document.getElementById("readManifestBtn");
+    const overlay = document.getElementById("overlayAbout");
+    const manifest = document.getElementById("manifest");
+    const body = document.body;
+
+    btn.addEventListener("click", () => {
+      overlay.classList.toggle("opacity-0");
+      overlay.classList.toggle("pointer-events-none");
+      manifest.classList.toggle("opacity-0");
+      manifest.classList.toggle("-translate-x-full");
+      body.classList.add("overflow-hidden");
+    });
+
+    overlay.addEventListener("click", () => {
+      overlay.classList.toggle("opacity-0");
+      overlay.classList.toggle("pointer-events-none");
+      manifest.classList.toggle("-translate-x-full");
+      manifest.classList.toggle("opacity-0");
+      body.classList.remove("overflow-hidden");
+    });
+  })();
+</script>

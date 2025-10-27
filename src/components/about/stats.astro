@@ -1,0 +1,38 @@
+---
+interface Props {
+  label: string;
+  data: { data: string; label: string }[];
+  styles?: string;
+}
+
+const { label, data, styles } = Astro.props;
+---
+
+<section
+  class:list={[
+    "grid gap-[6.5rem] px-[5.26vw] pt-[3.75rem] pb-36 md:grid-cols-3 md:gap-[2.8rem] md:px-[3vw] md:pt-[5.5rem] md:pb-[7.5rem] lg:px-[2vw] lg:pt-0",
+    styles,
+  ]}
+>
+  <div class="h-fit md:sticky md:top-[5.5rem]">
+    <h2
+      class="title text-center text-2xl font-medium uppercase min-[1440px]:text-[calc(11.2px+0.333333vw)] md:text-start"
+    >
+      {label}
+    </h2>
+  </div>
+
+  <!-- Columna derecha: valores -->
+  <div class="space-y-24 md:col-span-2">
+    {
+      data.map(({ label, data }) => (
+        <div class="text-center md:text-start">
+          <div class="text-6xl lg:text-7xl xl:text-8xl">{data}</div>
+          <div class="text-accent-primary text-xl min-[448px]:text-[calc(16px+0.892857vw)] min-[1440px]:text-[calc(19.6px+0.583333vw)] lg:text-3xl">
+            {label}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
