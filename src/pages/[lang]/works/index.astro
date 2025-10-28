@@ -1,0 +1,84 @@
+---
+import type { GetStaticPaths } from "astro";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import { locales } from "@i18n/utils";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+export const getStaticPaths = (async () => {
+  const works = await getCollection("works");
+
+  return Object.keys(locales).flatMap((locale) => {
+    const filtered = works
+      .filter((work) => work.id.startsWith(`${locale}/`))
+      .map(({ id, data }) => ({
+        id: id.split("/")[1],
+        company: data.company,
+        category: data.category,
+        cover: data.cover,
+      }));
+    return {
+      params: { lang: locale },
+      props: { works: filtered },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["works"];
+const { works } = Astro.props;
+---
+
+<GlobalLayout title={t.title} description={t.description}>
+  <main class="columns-2 gap-4 md:gap-6 lg:columns-4 lg:gap-8">
+    {
+      works.map(({ id, category, company, cover }, index) => (
+        <a
+          href={getRelativeLocaleUrl(currentLang, id)}
+          class:list={[
+            "relative mb-4 block max-lg:aspect-[1/1.3] md:mb-6",
+            index > 5 && "max-lg:aspect-[1/1.5]",
+            index % 2 === 0 ? "lg:aspect-[1/1.3]" : "lg:aspect-[1/1.5]",
+            [2, 8].includes(index) && "lg:mb-0 lg:aspect-[1/1.5]",
+            [5, 11].includes(index) && "lg:mb-0",
+            ![2, 5, 8, 11].includes(index) && "lg:mb-8",
+          ]}
+        >
+          <Image
+            src={cover}
+            alt={`${company} - ${category}`}
+            loading="eager"
+            class="size-full object-cover"
+            quality={80}
+          />
+
+          <div class="absolute bottom-0 left-0 flex w-full flex-wrap items-center gap-x-1 p-2.5 text-white mix-blend-difference md:p-5">
+            <h3 class="title text-sm font-medium uppercase sm:text-base lg:text-lg xl:text-xl">
+              {company}
+            </h3>
+            <p>·</p>
+            <p class="font-title text-xs sm:text-sm lg:text-base xl:text-lg">
+              {category}
+            </p>
+          </div>
+        </a>
+      ))
+    }
+  </main>
+</GlobalLayout>
+
+<style>
+  html,
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+</style>
