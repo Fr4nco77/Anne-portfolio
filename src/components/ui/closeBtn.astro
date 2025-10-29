@@ -1,6 +1,5 @@
 ---
 import { locales } from "@i18n/utils";
-import { getRelativeLocaleUrl } from "astro:i18n";
 
 const currentLang = Astro.currentLocale as keyof typeof locales;
 const text = {
@@ -15,10 +14,9 @@ const text = {
   class="animate-slideUp fixed bottom-0 left-1/2 z-11 flex -translate-x-1/2 justify-center pb-3 opacity-0 transition-transform duration-500 hover:scale-110 lg:pb-12 lg:[animation-delay:2.5s]"
 >
   <!-- Botón principal -->
-  <a
-    href={getRelativeLocaleUrl(currentLang, "blog")}
+  <button
     class="bg-accent-primary z-11 size-17 cursor-pointer rounded-full shadow-lg/20 transition-colors duration-500 lg:size-20"
-  ></a>
+  ></button>
 
   <!-- Texto circular SVG -->
   <svg
@@ -61,6 +59,11 @@ const text = {
     wrapper.addEventListener("mouseleave", () => {
       rotation += 180;
       svg.style.transform = `rotate(${rotation}deg)`;
+    });
+
+    //Back
+    wrapper.addEventListener("click", () => {
+      history.back();
     });
   })();
 </script>
