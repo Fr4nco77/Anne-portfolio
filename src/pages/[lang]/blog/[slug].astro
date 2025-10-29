@@ -3,7 +3,7 @@ import type { GetStaticPaths } from "astro";
 import GlobalLayout from "@layouts/globalLayout.astro";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
-import CloseBtn from "@components/blog/closeBtn.astro";
+import CloseBtn from "@components/ui/closeBtn.astro";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blogs");
