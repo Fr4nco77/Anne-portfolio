@@ -38,7 +38,7 @@ const { works } = Astro.props;
     {
       works.map(({ id, category, company, cover }, index) => (
         <a
-          href={getRelativeLocaleUrl(currentLang, id)}
+          href={getRelativeLocaleUrl(currentLang, `works/${id}`)}
           class:list={[
             "relative mb-4 block max-lg:aspect-[1/1.3] md:mb-6",
             index > 5 && "max-lg:aspect-[1/1.5]",
@@ -51,19 +51,20 @@ const { works } = Astro.props;
           <Image
             src={cover}
             alt={`${company} - ${category}`}
+            transition:name={`${company} - cover`}
             loading="eager"
+            quality={90}
             class="size-full object-cover"
-            quality={80}
           />
-
-          <div class="absolute bottom-0 left-0 flex w-full flex-wrap items-center gap-x-1 p-2.5 text-white mix-blend-difference md:p-5">
-            <h3 class="title text-sm font-medium uppercase sm:text-base lg:text-lg xl:text-xl">
+          <div
+            transition:name={`${company} - description`}
+            class="absolute bottom-0 left-0 flex w-full flex-wrap items-center gap-x-1 p-2.5 text-white mix-blend-difference md:p-5"
+          >
+            <h3 class="title text-sm font-medium uppercase sm:text-base">
               {company}
             </h3>
             <p>·</p>
-            <p class="font-title text-xs sm:text-sm lg:text-base xl:text-lg">
-              {category}
-            </p>
+            <p class="font-title text-xs sm:text-sm">{category}</p>
           </div>
         </a>
       ))
