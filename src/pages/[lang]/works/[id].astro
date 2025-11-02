@@ -52,8 +52,10 @@ const {
 ---
 
 <GlobalLayout title={company} description={text}>
-  <main class="size-full">
-    <div class="relative h-screen w-full">
+  <main
+    class="scrollbar-hide size-full snap-mandatory overflow-y-auto scroll-smooth lg:snap-y"
+  >
+    <div class="relative h-screen w-full snap-start">
       <Image
         src={cover}
         alt={`${company} - ${category}`}
@@ -73,7 +75,7 @@ const {
         <p class="font-title text-xs sm:text-sm">{category}</p>
       </div>
     </div>
-    <div class="grid w-full lg:h-screen lg:grid-cols-2">
+    <div class="grid w-full snap-start lg:h-screen lg:grid-cols-2">
       <div
         class="prose prose-lg sm:prose-xl 2xl:prose-2xl prose-h1:font-medium prose-h1:font-title prose-h1:text-base sm:prose-h1:text-xl lg:prose-h1:text-lg flex size-full flex-col overflow-y-auto px-5 py-16 md:px-7 md:pt-20 md:pb-14"
       >
@@ -100,10 +102,10 @@ const {
     <Image
       src={images[1]}
       alt="Anne Dupont"
-      class="h-screen w-full object-cover"
+      class="h-screen w-full snap-start object-cover"
     />
     <DivideImage image={images[2]} text={text} />
-    <div class="relative h-screen w-full">
+    <div class="relative h-screen w-full snap-start">
       <Image src={images[3]} alt="Anne Dupont" class="size-full object-cover" />
       <div
         class="absolute bottom-9 left-[5.26vw] w-full max-w-52 space-y-1.5 text-white mix-blend-difference md:bottom-12 md:left-[3vw] md:max-w-64 lg:left-[2vw]"
@@ -112,7 +114,7 @@ const {
         <p class="text-sm sm:text-base">{info.text}</p>
       </div>
     </div>
-    <div class="relative h-screen w-full">
+    <div class="relative h-screen w-full snap-start">
       <Image src={images[4]} alt="Anne Dupont" class="size-full object-cover" />
       <div
         class="absolute top-1/2 left-1/2 w-[calc(100%-2.5rem)] max-w-[60ch] -translate-x-1/2 -translate-y-1/2 space-y-9 text-center text-white mix-blend-difference"
@@ -123,7 +125,7 @@ const {
         <p class="text-lg sm:text-xl lg:text-3xl">{aditionalInfo.text}</p>
       </div>
     </div>
-    <div class="grid lg:grid-cols-2">
+    <div class="grid snap-start lg:grid-cols-2">
       <Image
         src={images[5]}
         alt="Anne Dupont"
