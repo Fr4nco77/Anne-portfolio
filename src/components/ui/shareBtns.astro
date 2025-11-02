@@ -5,19 +5,23 @@ import Linkedin from "@assets/icons/Linkedin.astro";
 import Copy from "@assets/icons/Copy.astro";
 
 interface Props {
-  text: string;
+  texts: {
+    contact: string;
+    share: string;
+  };
+  currentLang: string;
   url: string;
   styles?: string;
 }
 
-const { text, url, styles } = Astro.props;
+const { texts, url, currentLang, styles } = Astro.props;
 
 const instagramShareUrl = `https://www.instagram.com/?url=${encodeURIComponent(url)}`;
 const linkedinShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(url)}`;
 ---
 
-<div class:list={["not-prose flex items-center gap-4 text-black", styles]}>
-  <span class="font-title text-base font-medium">{text}</span>
+<div class:list={["not-prose flex items-center flex-wrap gap-4 text-black", styles]}>
+  <span class="font-title text-base font-medium">{texts.share}</span>
   <ul class="flex items-center">
     <li title="Instagram">
       <SquareButton
@@ -48,6 +52,16 @@ const linkedinShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=$
       >
         <Copy styles="size-4" />
       </button>
+    </li>
+    <li>
+      <SquareButton
+        color="white"
+        label="Contact me"
+        toLocal="contact"
+        lang={currentLang}
+        styles="text-xl uppercase font-medium ml-2"
+        >{texts.contact}</SquareButton
+      >
     </li>
   </ul>
 </div>
