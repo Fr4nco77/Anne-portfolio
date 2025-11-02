@@ -11,11 +11,11 @@ const text = {
 <!-- Botón flotante con texto circular -->
 <div
   id="floatingCloseButtonWrapper"
-  class="animate-slideUp fixed bottom-0 left-1/2 z-11 flex -translate-x-1/2 justify-center pb-3 opacity-0 transition-transform duration-500 hover:scale-110 lg:pb-12 lg:[animation-delay:2.5s]"
+  class="animate-slideUp fixed bottom-0 left-1/2 z-11 flex -translate-x-1/2 justify-center pb-3 mix-blend-difference lg:pb-12 lg:[animation-delay:2.5s]"
 >
   <!-- Botón principal -->
   <button
-    class="bg-accent-primary z-11 size-17 cursor-pointer rounded-full shadow-lg/20 transition-colors duration-500 lg:size-20"
+    class="z-11 size-17 cursor-pointer rounded-full bg-black shadow-lg/20 lg:size-20"
   ></button>
 
   <!-- Texto circular SVG -->
@@ -33,8 +33,7 @@ const text = {
           href="#circularTextPath"
           startOffset="50%"
           text-anchor="middle"
-          class="transition-all duration-500"
-          fill="#000"
+          fill="#fff"
         >
           {text[currentLang]}
         </textPath>
