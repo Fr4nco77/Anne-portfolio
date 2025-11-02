@@ -4,6 +4,10 @@ import GlobalLayout from "@layouts/globalLayout.astro";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
 import CloseBtn from "@components/ui/closeBtn.astro";
+import ShareBtns from "@components/ui/shareBtns.astro";
+import type { locales } from "@i18n/utils";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blogs");
@@ -22,6 +26,11 @@ export const getStaticPaths = (async () => {
   });
 }) satisfies GetStaticPaths;
 
+const currentLang = Astro.currentLocale as keyof typeof locales;
+const translations = { en, es };
+const t = translations[currentLang]["work"];
+
+const { href } = Astro.url;
 const { post } = Astro.props;
 const { Content } = await render(post);
 const { title, description, category, images } = post.data;
@@ -53,6 +62,12 @@ const { title, description, category, images } = post.data;
       </div>
       <div class="mx-auto max-w-[378px] md:max-w-[432px] xl:max-w-[572px]">
         <Content />
+        <ShareBtns
+          texts={t}
+          url={href}
+          currentLang={currentLang}
+          styles="mt-16"
+        />
       </div>
     </main>
   </div>
