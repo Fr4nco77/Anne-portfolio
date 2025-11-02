@@ -1,0 +1,64 @@
+---
+import SquareButton from "./squareButton.astro";
+import Instagram from "@assets/icons/Instagram.astro";
+import Linkedin from "@assets/icons/Linkedin.astro";
+import Copy from "@assets/icons/Copy.astro";
+
+interface Props {
+  text: string;
+  url: string;
+  styles?: string;
+}
+
+const { text, url, styles } = Astro.props;
+
+const instagramShareUrl = `https://www.instagram.com/?url=${encodeURIComponent(url)}`;
+const linkedinShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(url)}`;
+---
+
+<div class:list={["not-prose flex items-center gap-4 text-black", styles]}>
+  <span class="font-title text-base font-medium">{text}</span>
+  <ul class="flex items-center">
+    <li title="Instagram">
+      <SquareButton
+        toExternal={instagramShareUrl}
+        label="to instagram"
+        color="white"
+        styles="border-r-0 hover:border-black"
+      >
+        <Instagram styles="size-4" />
+      </SquareButton>
+    </li>
+    <li title="LinkedIn">
+      <SquareButton
+        toExternal={linkedinShareUrl}
+        label="to linkedin"
+        color="white"
+        styles="border-r-0 hover:border-black"
+      >
+        <Linkedin styles="size-4" />
+      </SquareButton>
+    </li>
+    <li title="Copy Link">
+      <button
+        id="copyBtn"
+        data-url={url}
+        class="font-title flex w-auto cursor-pointer items-center justify-center border px-5 py-2 text-xs font-medium transition-colors duration-500 hover:border-black hover:bg-black hover:text-white"
+        aria-label="Copiar link"
+      >
+        <Copy styles="size-4" />
+      </button>
+    </li>
+  </ul>
+</div>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const btn = document.getElementById("copyBtn");
+    const url = btn.dataset.url;
+
+    btn?.addEventListener("click", () => {
+      navigator.clipboard.writeText(url);
+    });
+  })();
+</script>
