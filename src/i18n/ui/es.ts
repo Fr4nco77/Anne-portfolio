@@ -141,4 +141,13 @@ export default {
     description:
       "Explora el portafolio de Anne Dupont, una modelo profesional con una destacada trayectoria en la industria de la moda. Descubre sus colaboraciones con marcas reconocidas, campañas publicitarias impactantes y sesiones editoriales que reflejan su versatilidad y autenticidad en cada proyecto.",
   },
+  work: {
+    share: "Compartir",
+    contact: "Escribime",
+    cta: {
+      ctaText:
+        "Si tu proyecto busca una presencia auténtica, versátil y con experiencia internacional, estaré encantada de explorar cómo podemos trabajar juntos.",
+      ctaButtonLabel: "Iniciar colaboración",
+    },
+  },
 };

@@ -141,4 +141,13 @@ export default {
     description:
       "Explore the impressive portfolio of Anne Dupont, a professional model known for her versatility and captivating presence. In this section, you'll find a curated selection of her most outstanding works, including photo shoots, runway shows, and collaborations with renowned fashion brands. Each project reflects Anne's unique ability to embody different styles and concepts, making her a sought-after figure in the fashion industry.",
   },
+  work: {
+    share: "Share",
+    contact: "Get in touch",
+    cta: {
+      ctaText:
+        "If your project seeks an authentic, versatile presence with international experience, I'd be delighted to explore how we can work together.",
+      ctaButtonLabel: "Start collaboration",
+    },
+  },
 };
