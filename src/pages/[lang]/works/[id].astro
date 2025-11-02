@@ -1,0 +1,142 @@
+---
+import type { GetStaticPaths } from "astro";
+import GlobalLayout from "@layouts/globalLayout.astro";
+import { getCollection } from "astro:content";
+import type { locales } from "@i18n/utils";
+import { Image } from "astro:assets";
+import CloseBtn from "@components/ui/closeBtn.astro";
+import { render } from "astro:content";
+import ShareBtns from "@components/ui/shareBtns.astro";
+import SquareButton from "@components/ui/squareButton.astro";
+import CTA from "@components/about/CTA.astro";
+import en from "@i18n/ui/en";
+import es from "@i18n/ui/es";
+import DivideImage from "@components/work/divideImage.astro";
+
+export const getStaticPaths = (async () => {
+  const works = await getCollection("works");
+
+  return works.map((work) => {
+    const [lang, id] = work.id.split("/");
+
+    return {
+      params: {
+        lang,
+        id,
+      },
+      props: {
+        work,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { href } = Astro.url;
+const { work } = Astro.props;
+const currentLang = Astro.currentLocale as keyof typeof locales;
+
+const translations = { en, es };
+const t = translations[currentLang]["work"];
+
+const { Content } = await render(work);
+const {
+  cover,
+  company,
+  category,
+  images,
+  text,
+  aditionalText,
+  info,
+  aditionalInfo,
+} = work.data;
+---
+
+<GlobalLayout title={company} description={text}>
+  <main class="size-full">
+    <div class="relative h-screen w-full">
+      <Image
+        src={cover}
+        alt={`${company} - ${category}`}
+        transition:name={`${company} - cover`}
+        loading="eager"
+        class="size-full object-cover object-top"
+        quality={90}
+      />
+      <div
+        transition:name={`${company} - description`}
+        class="absolute bottom-0 left-0 flex w-full flex-wrap items-center gap-x-1 p-2.5 text-white mix-blend-difference md:p-5"
+      >
+        <h3 class="title text-sm font-medium uppercase sm:text-base">
+          {company}
+        </h3>
+        <p>·</p>
+        <p class="font-title text-xs sm:text-sm">{category}</p>
+      </div>
+    </div>
+    <div class="grid w-full lg:h-screen lg:grid-cols-2">
+      <div
+        class="prose prose-lg sm:prose-xl 2xl:prose-2xl prose-h1:font-medium prose-h1:font-title prose-h1:text-base sm:prose-h1:text-xl lg:prose-h1:text-lg flex size-full flex-col overflow-y-auto px-5 py-16 md:px-7 md:pt-20 md:pb-14"
+      >
+        <Content />
+        <div class="mt-auto flex flex-wrap items-center gap-2">
+          <ShareBtns text={t.share} url={href} />
+          <SquareButton
+            color="white"
+            label="Contact me"
+            toLocal="contact"
+            lang={currentLang}
+            styles="no-underline text-xl uppercase font-medium"
+            >{t.contact}</SquareButton
+          >
+        </div>
+      </div>
+      <Image
+        src={images[0]}
+        alt="Anne Dupont"
+        class="h-screen w-full object-cover"
+      />
+    </div>
+
+    <Image
+      src={images[1]}
+      alt="Anne Dupont"
+      class="h-screen w-full object-cover"
+    />
+    <DivideImage image={images[2]} text={text} />
+    <div class="relative h-screen w-full">
+      <Image src={images[3]} alt="Anne Dupont" class="size-full object-cover" />
+      <div
+        class="absolute bottom-9 left-[5.26vw] w-full max-w-52 space-y-1.5 text-white mix-blend-difference md:bottom-12 md:left-[3vw] md:max-w-64 lg:left-[2vw]"
+      >
+        <h3 class="font-bold sm:text-lg">{info.title}</h3>
+        <p class="text-sm sm:text-base">{info.text}</p>
+      </div>
+    </div>
+    <div class="relative h-screen w-full">
+      <Image src={images[4]} alt="Anne Dupont" class="size-full object-cover" />
+      <div
+        class="absolute top-1/2 left-1/2 w-[calc(100%-2.5rem)] max-w-[60ch] -translate-x-1/2 -translate-y-1/2 space-y-9 text-center text-white mix-blend-difference"
+      >
+        <h3 class="text-sm font-bold sm:text-base lg:text-lg">
+          {aditionalInfo.title}
+        </h3>
+        <p class="text-lg sm:text-xl lg:text-3xl">{aditionalInfo.text}</p>
+      </div>
+    </div>
+    <div class="grid lg:grid-cols-2">
+      <Image
+        src={images[5]}
+        alt="Anne Dupont"
+        class="h-screen w-full object-cover"
+      />
+      <Image
+        src={images[6]}
+        alt="Anne Dupont"
+        class="h-screen w-full object-cover"
+      />
+    </div>
+    <DivideImage image={images[7]} text={aditionalText} />
+    <CTA lang={currentLang} texts={t.cta} />
+  </main>
+</GlobalLayout>
+<CloseBtn />
