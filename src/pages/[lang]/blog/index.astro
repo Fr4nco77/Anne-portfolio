@@ -33,8 +33,8 @@ const t = translations[currentLang]["blog"];
 ---
 
 <GlobalLayout title={t.title} description={t.description} monoLayout>
-  <div
-    class="flex min-h-screen w-full flex-col items-center justify-center px-4 py-[18lvh]"
+  <main
+    class="scrollbar-hide flex size-full snap-y snap-mandatory flex-col items-center overflow-y-auto scroll-smooth px-4 py-[18lvh]"
   >
     {
       posts.map(({ slug, title, category }) => (
@@ -47,5 +47,5 @@ const t = translations[currentLang]["blog"];
         />
       ))
     }
-  </div>
+  </main>
 </GlobalLayout>
