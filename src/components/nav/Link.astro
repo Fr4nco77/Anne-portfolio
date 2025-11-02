@@ -8,15 +8,16 @@ interface Props {
   to: string;
   label: string;
   image: ImageMetadata;
+  imageStyle: string;
 }
 
-const { currentLLang, currentPage, to, label, image } = Astro.props;
+const { currentLLang, currentPage, to, label, image, imageStyle } = Astro.props;
 ---
 
 <a
   href={getRelativeLocaleUrl(currentLLang, to)}
   aria-label={`to ${label}`}
-  class="group w-full"
+  class="group size-full"
 >
   <div class="mb-3 flex items-center gap-1.5">
     <span
@@ -31,13 +32,11 @@ const { currentLLang, currentPage, to, label, image } = Astro.props;
       >{label}</span
     >
   </div>
-  <div>
-    <Image
-      src={image}
-      alt={label}
-      loading="eager"
-      quality={60}
-      class="object cover aspect-auto w-full"
-    />
-  </div>
+  <Image
+    src={image}
+    alt={label}
+    loading="eager"
+    quality={60}
+    class:list={["size-full object-cover md:h-auto", imageStyle]}
+  />
 </a>

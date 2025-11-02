@@ -3,6 +3,10 @@ import type { LinksLabels } from "@lib/types";
 import Networks from "./networks.astro";
 import Languages from "./languages.astro";
 import home from "@assets/images/nav/home.png";
+import works from "@assets/images/nav/works.png";
+import about from "@assets/images/nav/about.png";
+import contact from "@assets/images/nav/contact.png";
+import blog from "@assets/images/nav/blog.png";
 import Link from "./Link.astro";
 
 interface Props {
@@ -14,7 +18,7 @@ interface Props {
 const { followText, languageText, linksTexts, lang } = Astro.props;
 const { pathname } = Astro.url;
 const currentPage = pathname.replace(/^\/[a-z]{2}/, "").split("/")[1] || "/";
-// const images = {home} <== Aquí agrupar todas las imagenes
+const images = { home, works, about, contact, blog };
 ---
 
 <nav
@@ -26,14 +30,23 @@ const currentPage = pathname.replace(/^\/[a-z]{2}/, "").split("/")[1] || "/";
       class="scrollbar-hide flex w-max items-center gap-8 overflow-x-auto scroll-smooth px-8"
     >
       {
-        Object.entries(linksTexts).map(([key, label]) => (
-          <li class="min-w-32 md:min-w-80 xl:min-w-[40vh]">
+        Object.entries(linksTexts).map(([key, label], index) => (
+          <li class="h-56 min-w-32 md:h-48 md:min-w-80 xl:min-w-[40vh]">
             <Link
               currentLLang={lang}
               currentPage={currentPage}
               to={key === "home" ? "/" : key}
               label={label}
-              image={home}
+              image={images[key]}
+              imageStyle={
+                index === 3
+                  ? "object-[80%]"
+                  : index === 0
+                    ? "object-[85%]"
+                    : index === 1 || index === 2
+                      ? "object-left"
+                      : "object-center"
+              }
             />
           </li>
         ))
