@@ -80,17 +80,12 @@ const {
         class="prose prose-lg sm:prose-xl 2xl:prose-2xl prose-h1:font-medium prose-h1:font-title prose-h1:text-base sm:prose-h1:text-xl lg:prose-h1:text-lg flex size-full flex-col overflow-y-auto px-5 py-16 md:px-7 md:pt-20 md:pb-14"
       >
         <Content />
-        <div class="mt-auto flex flex-wrap items-center gap-2">
-          <ShareBtns text={t.share} url={href} />
-          <SquareButton
-            color="white"
-            label="Contact me"
-            toLocal="contact"
-            lang={currentLang}
-            styles="no-underline text-xl uppercase font-medium"
-            >{t.contact}</SquareButton
-          >
-        </div>
+        <ShareBtns
+          texts={t}
+          url={href}
+          currentLang={currentLang}
+          styles="mt-auto"
+        />
       </div>
       <Image
         src={images[0]}
