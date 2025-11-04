@@ -8,6 +8,7 @@ import es from "@i18n/ui/es";
 import { locales, staticPaths } from "@i18n/utils";
 import GlobalLayout from "@layouts/globalLayout.astro";
 import CTA from "@components/about/CTA.astro";
+import Overlay from "@components/about/overlay.astro";
 export const getStaticPaths = staticPaths;
 
 const currentLang = Astro.currentLocale as keyof typeof locales;
@@ -16,6 +17,7 @@ const t = translations[currentLang]["about"];
 ---
 
 <Manifesto title={t.manifesto.title} paragraphs={t.manifesto.paragraphs} />
+<Overlay />
 <GlobalLayout title={t.title} description={t.description} monoLayout>
   <main class="flex size-full flex-col pt-28">
     <Hero title={t.hero.title} manifestBtn={t.hero.manifestBtn} />
