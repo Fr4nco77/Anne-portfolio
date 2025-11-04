@@ -34,25 +34,19 @@ const { works } = Astro.props;
 ---
 
 <GlobalLayout title={t.title} description={t.description}>
-  <main class="columns-2 gap-4 md:gap-6 lg:columns-4 lg:gap-8">
+  <main class="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4 lg:gap-8">
     {
       works.map(({ id, category, company, cover }, index) => (
         <a
           href={getRelativeLocaleUrl(currentLang, `works/${id}`)}
-          class:list={[
-            "relative mb-4 block max-lg:aspect-[1/1.3] md:mb-6",
-            index > 5 && "max-lg:aspect-[1/1.5]",
-            index % 2 === 0 ? "lg:aspect-[1/1.3]" : "lg:aspect-[1/1.5]",
-            [2, 8].includes(index) && "lg:mb-0 lg:aspect-[1/1.5]",
-            [5, 11].includes(index) && "lg:mb-0",
-            ![2, 5, 8, 11].includes(index) && "lg:mb-8",
-          ]}
+          style={`animation-delay:${index * 100}ms`}
+          class="cards relative aspect-[1/1.5]"
         >
           <Image
             src={cover}
             alt={`${company} - ${category}`}
             transition:name={`${company} - cover`}
-            loading="eager"
+            loading={index < 8 ? "eager" : "lazy"}
             quality={90}
             class="size-full object-cover"
           />
@@ -83,3 +77,17 @@ const { works } = Astro.props;
     display: none;
   }
 </style>
+
+<script is:inline data-astro-rerun>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".cards");
+    cards.forEach((card) => {
+      const img = card.querySelector("img");
+
+      img?.addEventListener("load", () => {
+        card.classList.add("opacity-0");
+        card.classList.add("animate-fadeIn");
+      });
+    });
+  });
+</script>
