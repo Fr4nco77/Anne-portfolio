@@ -28,7 +28,7 @@ const { title, manifestBtn } = Astro.props;
 </div>
 
 <script is:inline data-astro-rerun>
-  (() => {
+  document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("readManifestBtn");
     const overlay = document.getElementById("overlayAbout");
     const manifest = document.getElementById("manifest");
@@ -49,5 +49,5 @@ const { title, manifestBtn } = Astro.props;
       manifest.classList.add("opacity-0");
       body.classList.remove("overflow-hidden");
     });
-  })();
+  });
 </script>

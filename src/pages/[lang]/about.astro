@@ -16,8 +16,6 @@ const translations = { en, es };
 const t = translations[currentLang]["about"];
 ---
 
-<Manifesto title={t.manifesto.title} paragraphs={t.manifesto.paragraphs} />
-<Overlay />
 <GlobalLayout title={t.title} description={t.description} monoLayout>
   <main class="flex size-full flex-col pt-28">
     <Hero title={t.hero.title} manifestBtn={t.hero.manifestBtn} />
@@ -31,3 +29,5 @@ const t = translations[currentLang]["about"];
     <CTA lang={currentLang} texts={t.cta} />
   </main>
 </GlobalLayout>
+<Manifesto title={t.manifesto.title} paragraphs={t.manifesto.paragraphs} />
+<Overlay />
