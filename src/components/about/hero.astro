@@ -40,18 +40,18 @@ const { title, manifestBtn } = Astro.props;
     const body = document.body;
 
     btn.addEventListener("click", () => {
-      overlay.classList.toggle("opacity-0");
-      overlay.classList.toggle("pointer-events-none");
-      manifest.classList.toggle("opacity-0");
-      manifest.classList.toggle("-translate-x-full");
+      overlay.classList.remove("opacity-0");
+      overlay.classList.remove("pointer-events-none");
+      manifest.classList.remove("opacity-0");
+      manifest.classList.remove("-translate-x-full");
       body.classList.add("overflow-hidden");
     });
 
     overlay.addEventListener("click", () => {
-      overlay.classList.toggle("opacity-0");
-      overlay.classList.toggle("pointer-events-none");
-      manifest.classList.toggle("-translate-x-full");
-      manifest.classList.toggle("opacity-0");
+      overlay.classList.add("opacity-0");
+      overlay.classList.add("pointer-events-none");
+      manifest.classList.add("-translate-x-full");
+      manifest.classList.add("opacity-0");
       body.classList.remove("overflow-hidden");
     });
   })();
