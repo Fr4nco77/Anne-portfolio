@@ -1,0 +1,6 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currenLocale = Astro.currentLocale;
+return Astro.redirect(getRelativeLocaleUrl(currenLocale, "works"));
+---
