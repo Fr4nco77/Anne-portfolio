@@ -9,7 +9,7 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "http://localhost:4321",
+  site: "https://anne-portafolio.vercel.app",
   vite: {
     plugins: [tailwindcss()],
   },
