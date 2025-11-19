@@ -79,15 +79,19 @@ const { works } = Astro.props;
 </style>
 
 <script is:inline data-astro-rerun>
-  document.addEventListener("DOMContentLoaded", () => {
+  (() => {
     const cards = document.querySelectorAll(".cards");
     cards.forEach((card) => {
       const img = card.querySelector("img");
+      if (!img) return;
 
-      img?.addEventListener("load", () => {
+      if (!img.complete || img.naturalHeight === 0) {
         card.classList.add("opacity-0");
-        card.classList.add("animate-fadeIn");
-      });
+
+        img.addEventListener("load", () => {
+          card.classList.add("animate-fadeIn");
+        });
+      }
     });
-  });
+  })();
 </script>
