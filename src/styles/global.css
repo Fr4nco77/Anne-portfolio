@@ -6,6 +6,7 @@
   --color-accent-primary: #c38133;
   --color-accent-secondary: #3c4cc7;
   --animate-fadeIn: fadeIn 1s ease-out forwards;
+  --animate-fadeWorks: fadeIn 0.5s ease-out forwards;
   --animate-fadeOut: fadeOut 1s ease-in forwards;
   --animate-revealX: revealX 1s ease-in-out forwards;
   --animate-revealY: revealY 1s ease-in-out forwards;
