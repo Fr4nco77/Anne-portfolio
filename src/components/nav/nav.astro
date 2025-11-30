@@ -18,7 +18,13 @@ interface Props {
 const { followText, languageText, linksTexts, lang } = Astro.props;
 const { pathname } = Astro.url;
 const currentPage = pathname.replace(/^\/[a-z]{2}/, "").split("/")[1] || "/";
-const images = { home, works, about, contact, blog };
+const images: { [key: string]: ImageMetadata } = {
+  home,
+  works,
+  about,
+  contact,
+  blog,
+};
 ---
 
 <nav
@@ -63,8 +69,8 @@ const images = { home, works, about, contact, blog };
   </div>
 </nav>
 
-<script is:inline data-astro-rerun>
-  (function () {
+<script>
+  document.addEventListener("astro:page-load", () => {
     const scrollContainer = document.getElementById("scroll-zone");
     if (!scrollContainer) return;
 
@@ -86,7 +92,7 @@ const images = { home, works, about, contact, blog };
 
     function autoScroll() {
       if (isHovering) {
-        const rect = scrollContainer.getBoundingClientRect();
+        const rect = scrollContainer!.getBoundingClientRect();
         const width = rect.width;
         const edgeZone = width * 0.4; // 40% de cada borde
 
@@ -100,12 +106,12 @@ const images = { home, works, about, contact, blog };
           speed = ((mouseX - (width - edgeZone)) / edgeZone) * 15;
         }
 
-        scrollContainer.scrollLeft += speed;
+        scrollContainer!.scrollLeft += speed;
       }
 
       requestAnimationFrame(autoScroll);
     }
 
     autoScroll();
-  })();
+  });
 </script>

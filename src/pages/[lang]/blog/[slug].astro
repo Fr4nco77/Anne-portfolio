@@ -74,10 +74,10 @@ const { title, description, category, images } = post.data;
 </GlobalLayout>
 <CloseBtn />
 
-<script is:inline data-astro-rerun>
-  (() => {
-    const imgEl = document.getElementById("dinamicImg");
-    let images;
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const imgEl = document.getElementById("dinamicImg")! as HTMLImageElement;
+    let images: ImageMetadata[];
 
     try {
       images = JSON.parse(imgEl.dataset.images || "[]");
@@ -90,19 +90,19 @@ const { title, description, category, images } = post.data;
     }
 
     let currentIndex = 0;
-    let intervalId = null;
+    let intervalId: any = null;
     const CHANGE_MS = 7000;
     const preloaded = [];
 
     function preloadAll() {
       images.forEach((it) => {
-        const i = new Image();
+        const i: any = new Image();
         i.src = it.src || it;
         preloaded.push(i);
       });
     }
 
-    function setImage(index) {
+    function setImage(index: number) {
       const src = images[index].src;
       // fade out -> change src -> fade in
       imgEl.classList.add("opacity-0");
@@ -149,5 +149,5 @@ const { title, description, category, images } = post.data;
         if (!intervalId) intervalId = setInterval(nextImage, CHANGE_MS);
       }
     });
-  })();
+  });
 </script>

@@ -30,8 +30,9 @@ const { subtitle } = Astro.props;
   </div>
 </div>
 <script>
-  window.addEventListener("load", () => {
-    const loader = document.getElementById("loader")!;
+  document.addEventListener("astro:page-load", () => {
+    const loader = document.getElementById("loader");
+    if (!loader) return;
 
     loader.addEventListener("animationend", (event) => {
       if (event.animationName === "loader") {

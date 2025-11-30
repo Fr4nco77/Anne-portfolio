@@ -81,15 +81,24 @@ const t = translations[currentLang]["form"];
   </DividedLayout>
 </GlobalLayout>
 
-<script is:inline data-astro-rerun>
-  (function () {
-    const image = document.getElementById("formImage");
-    image?.addEventListener("load", () => {
-      image.classList.remove("opacity-0");
-    });
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const image = document.getElementById("formImage") as HTMLImageElement;
+    if (!image) return;
 
-    const form = document.getElementById("contactForm");
-    const toast = document.getElementById("toast");
+    if (image.complete) image.classList.remove("opacity-0");
+    else {
+      image.addEventListener(
+        "load",
+        () => {
+          image.classList.remove("opacity-0");
+        },
+        { once: true },
+      );
+    }
+
+    const form = document.getElementById("contactForm") as HTMLFormElement;
+    const toast = document.getElementById("toast")!;
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -100,5 +109,5 @@ const t = translations[currentLang]["form"];
         toast.classList.add("opacity-0");
       }, 5000);
     });
-  })();
+  });
 </script>

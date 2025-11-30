@@ -51,18 +51,18 @@ const { openText, closeText } = Astro.props;
   </svg>
 </div>
 
-<script is:inline data-astro-rerun>
-  (function () {
+<script>
+  document.addEventListener("astro:page-load", () => {
     // Elementos clave
-    const wrapper = document.getElementById("floatingButtonWrapper");
-    const svg = document.getElementById("circularTextSVG");
-    const textLabel = document.getElementById("circularTextLabel");
-    const openText = textLabel.dataset.open;
-    const closeText = textLabel.dataset.close;
-    const button = document.getElementById("toggleMenuButton");
+    const wrapper = document.getElementById("floatingButtonWrapper")!;
+    const svg = document.getElementById("circularTextSVG")!;
+    const textLabel = document.getElementById("circularTextLabel")!;
+    const openText = textLabel.dataset.open!;
+    const closeText = textLabel.dataset.close!;
+    const button = document.getElementById("toggleMenuButton")!;
 
-    const contentWrapper = document.getElementById("wrapper");
-    const nav = document.querySelector("nav");
+    const contentWrapper = document.getElementById("wrapper")!;
+    const nav = document.querySelector("nav")!;
 
     let rotation = 0;
 
@@ -94,5 +94,5 @@ const { openText, closeText } = Astro.props;
       button.classList.toggle("bg-accent-primary");
       button.classList.toggle("bg-accent-secondary");
     });
-  })();
+  });
 </script>

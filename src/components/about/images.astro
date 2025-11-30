@@ -32,10 +32,11 @@ const images = [p1, p2, p3, p4, p5];
   <div id="hs-spacer" class="w-full" aria-hidden="true"></div>
 </section>
 
-<script is:inline data-astro-rerun>
-  (() => {
-    const track = document.getElementById("hs-track");
-    const spacer = document.getElementById("hs-spacer");
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const track = document.getElementById("hs-track") as HTMLElement;
+    const spacer = document.getElementById("hs-spacer") as HTMLElement;
+    if (!track || !spacer) return;
 
     const getVH = () =>
       window.innerHeight || document.documentElement.clientHeight;
@@ -45,7 +46,7 @@ const images = [p1, p2, p3, p4, p5];
       spacer.style.height = getVH() + overflow + "px";
     }
 
-    let rafId = null;
+    let rafId: number | null = null;
     function onScroll() {
       if (rafId) return;
       rafId = requestAnimationFrame(() => {
@@ -85,5 +86,5 @@ const images = [p1, p2, p3, p4, p5];
     // recalcular cuando cambian imágenes
     const ro = new ResizeObserver(recalc);
     ro.observe(track);
-  })();
+  });
 </script>

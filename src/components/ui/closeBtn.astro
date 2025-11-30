@@ -42,10 +42,11 @@ const text = {
   </svg>
 </div>
 
-<script is:inline data-astro-rerun>
-  (() => {
+<script>
+  document.addEventListener("astro:page-load", () => {
     const wrapper = document.getElementById("floatingCloseButtonWrapper");
     const svg = document.getElementById("circularCloseTextSVG");
+    if (!wrapper || !svg) return;
 
     let rotation = 0;
 
@@ -64,5 +65,5 @@ const text = {
     wrapper.addEventListener("click", () => {
       history.back();
     });
-  })();
+  });
 </script>

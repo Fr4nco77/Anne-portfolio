@@ -37,16 +37,16 @@ const { title, paragraphs } = Astro.props;
   </section>
 </div>
 
-<script is:inline data-astro-rerun>
-  (() => {
+<script>
+  document.addEventListener("astro:page-load", () => {
     const btn = document.getElementById("readManifestBtn");
     const overlay = document.getElementById("overlayAbout");
     const manifest = document.getElementById("manifest");
     const body = document.body;
-    
+    if (!btn || !overlay || !manifest) return;
+
     btn.addEventListener("click", () => {
       overlay.classList.remove("opacity-0");
-      console.log("ok")
       overlay.classList.remove("pointer-events-none");
       manifest.classList.remove("opacity-0");
       manifest.classList.remove("-translate-x-full");
@@ -60,5 +60,5 @@ const { title, paragraphs } = Astro.props;
       manifest.classList.add("opacity-0");
       body.classList.remove("overflow-hidden");
     });
-  })();
+  });
 </script>

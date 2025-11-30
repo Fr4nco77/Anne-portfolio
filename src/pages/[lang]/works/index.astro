@@ -78,8 +78,8 @@ const { works } = Astro.props;
   }
 </style>
 
-<script is:inline data-astro-rerun>
-  (() => {
+<script>
+  document.addEventListener("astro:page-load", () => {
     const cards = document.querySelectorAll(".cards");
     cards.forEach((card) => {
       const img = card.querySelector("img");
@@ -89,9 +89,9 @@ const { works } = Astro.props;
         card.classList.add("opacity-0");
 
         img.addEventListener("load", () => {
-          card.classList.add("animate-fadeIn");
+          card.classList.add("animate-fadeWorks");
         });
       }
     });
-  })();
+  });
 </script>

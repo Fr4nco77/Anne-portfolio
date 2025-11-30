@@ -20,7 +20,12 @@ const instagramShareUrl = `https://www.instagram.com/?url=${encodeURIComponent(u
 const linkedinShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(url)}`;
 ---
 
-<div class:list={["not-prose flex items-center flex-wrap gap-4 text-black", styles]}>
+<div
+  class:list={[
+    "not-prose flex flex-wrap items-center gap-4 text-black",
+    styles,
+  ]}
+>
   <span class="font-title text-base font-medium">{texts.share}</span>
   <ul class="flex items-center">
     <li title="Instagram">
@@ -66,13 +71,14 @@ const linkedinShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=$
   </ul>
 </div>
 
-<script is:inline data-astro-rerun>
-  (() => {
+<script>
+  document.addEventListener("astro:page-load", () => {
     const btn = document.getElementById("copyBtn");
-    const url = btn.dataset.url;
+    if (!btn) return;
+    const url = btn.dataset.url!;
 
     btn?.addEventListener("click", () => {
       navigator.clipboard.writeText(url);
     });
-  })();
+  });
 </script>
